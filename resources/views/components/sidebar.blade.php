@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div class="brand">
         <span class="brand-logo"><i class="bi bi-check2"></i></span>
-        daymark
+        Task Manager
     </div>
 
     <div class="search"><i class="bi bi-search"></i> Search anything...</div>
