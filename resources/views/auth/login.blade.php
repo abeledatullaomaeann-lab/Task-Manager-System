@@ -28,7 +28,6 @@
             <div class="auth-field">
                 <div class="auth-label-row">
                     <label class="auth-label" for="password">Password</label>
-                    <a href="#" class="auth-link">Forgot password?</a>
                 </div>
                 <div class="auth-input-wrap">
                     <input class="auth-input @error('password') has-error @enderror"

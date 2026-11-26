@@ -15,7 +15,6 @@
         Task Manager
     </div>
 
-    <div class="search"><i class="bi bi-search"></i> Search anything...</div>
 
     {{-- <x-nav-link icon="grid" :href="route('home')" :active="request()->routeIs('home')">Dashboard</x-nav-link> --}}
     <x-nav-link icon="check-circle" :href="route('tasks.index')" :active="request()->routeIs('tasks.*')">My tasks</x-nav-link>
@@ -26,7 +25,7 @@
                 <i class="bi bi-folder"></i>
             </span>
             {{ $category->name }}
-            <small>{{ $category->tasks_count }}</small>
+            <small data-category-count="{{ $category->id }}">{{ $category->tasks_count }}</small>
         </a>
     @endforeach
 
