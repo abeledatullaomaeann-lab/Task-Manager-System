@@ -1,5 +1,12 @@
 @php
-    $sidebarCategories = \App\Models\Category::withCount('tasks')->get();
+    $user = auth()->user();
+    $sidebarCategories = \App\Models\Category::withCount([
+        'tasks' => fn ($q) => $q->where('user_id', $user->id),
+    ])->get();
+    $initials = collect(explode(' ', $user->name))
+        ->map(fn ($part) => strtoupper(substr($part, 0, 1)))
+        ->take(2)
+        ->implode('');
 @endphp
 
 <aside class="sidebar">
@@ -28,11 +35,16 @@
         <x-nav-link icon="question-circle">Help &amp; feedback</x-nav-link>
 
         <div class="user">
-            <span class="avatar">MA</span>
+            <span class="avatar">{{ $initials }}</span>
             <div>
-                <div class="user-name">Mae Ann</div>
+                <div class="user-name">{{ $user->name }}</div>
                 <div class="user-plan">Free plan</div>
             </div>
+
+            <form method="POST" action="{{ route('logout') }}" style="margin-left: auto">
+                @csrf
+                <button type="submit" class="logout-btn" title="Log out"><i class="bi bi-box-arrow-right"></i></button>
+            </form>
         </div>
     </div>
 </aside>

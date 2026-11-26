@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Task;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index(Request $request)
     {
+        $user = $request->user();
         $showDone = $request->query('status') === 'done';
         $sort = $request->query('sort', 'due_date');
 
-        $query = Task::with('category')->where('status', $showDone ? 'done' : 'pending');
+        $query = $user->tasks()->with('category')->where('status', $showDone ? 'done' : 'pending');
 
         match ($sort) {
             'newest' => $query->latest(),
@@ -25,8 +25,8 @@ class TaskController extends Controller
         $tasks = $query->get();
         $categories = Category::all();
 
-        $total = Task::count();
-        $done = Task::where('status', 'done')->count();
+        $total = $user->tasks()->count();
+        $done = $user->tasks()->where('status', 'done')->count();
         $percent = $total > 0 ? round($done / $total * 100) : 0;
 
         $headline = $done === 0
@@ -40,16 +40,14 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->validated($request);
-        $data['user_id'] = User::first()->id; // temporary until login is added on Wednesday
-
-        Task::create($data);
+        $request->user()->tasks()->create($this->validated($request));
 
         return back()->with('success', 'Task added.');
     }
 
     public function update(Request $request, Task $task)
     {
+        $this->ownTask($task);
         $task->update($this->validated($request));
 
         return back()->with('success', 'Task updated.');
@@ -57,6 +55,7 @@ class TaskController extends Controller
 
     public function toggle(Task $task)
     {
+        $this->ownTask($task);
         $task->update([
             'status' => $task->status === 'done' ? 'pending' : 'done',
         ]);
@@ -66,9 +65,15 @@ class TaskController extends Controller
 
     public function destroy(Task $task)
     {
+        $this->ownTask($task);
         $task->delete();
 
         return back()->with('success', 'Task deleted.');
+    }
+
+    private function ownTask(Task $task): void
+    {
+        abort_unless($task->user_id === auth()->id(), 403);
     }
 
     private function validated(Request $request): array
@@ -78,6 +83,10 @@ class TaskController extends Controller
             'description' => ['nullable', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'due_date' => ['nullable', 'date'],
+        ], [
+            'title.required' => 'Please give your task a title.',
+            'category_id.required' => 'Please choose a category.',
+            'due_date.date' => "That doesn't look like a valid date.",
         ]);
     }
 }

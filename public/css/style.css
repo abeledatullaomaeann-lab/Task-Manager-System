@@ -168,3 +168,12 @@ a.tool-btn { text-decoration: none; }
 
 .alert { display: flex; align-items: center; gap: 8px; padding: 11px 14px; border-radius: 8px; font-size: 12px; margin-bottom: 18px; }
 .alert-success { background: #e8f2ec; color: #2f5d50; border: 1px solid #cfe3d7; }
+.auth-wrap { min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+.auth-card { width: min(400px, 100%); padding: 32px; }
+.auth-card .brand { padding: 0 0 20px; }
+.auth-title { font-size: 24px; font-weight: 700; margin: 0 0 4px; letter-spacing: -.02em; }
+.auth-card form { margin-top: 22px; }
+.btn-block { width: 100%; justify-content: center; margin-top: 6px; }
+.auth-hint { text-align: center; font-size: 11px; color: var(--muted); margin: 18px 0 0; }
+.logout-btn { background: none; border: 0; color: var(--muted); cursor: pointer; font-size: 16px; margin-left: auto; padding: 4px 6px; border-radius: 6px; }
+.logout-btn:hover { background: #efefea; color: var(--text); }

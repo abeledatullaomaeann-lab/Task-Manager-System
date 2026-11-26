@@ -10,7 +10,7 @@
     <div class="page-top">
         <div>
             <div class="eyebrow">{{ now()->format('l, F j, Y') }}</div>
-            <h1 class="greeting">Good morning, Mae Ann</h1>
+            <h1 class="greeting">Good morning, {{ auth()->user()->name }}</h1>
             <p class="subtext">A fresh week, a clear mind. Let's make it count.</p>
         </div>
         <button type="button" class="btn-primary" data-add-task>
