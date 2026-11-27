@@ -11,9 +11,7 @@
             <h1 class="greeting">Good morning, {{ auth()->user()->name }}</h1>
             <p class="subtext">A fresh week, a clear mind. Let's make it count.</p>
         </div>
-        <button type="button" class="btn-primary" id="add-task">
-            <i class="bi bi-plus-lg"></i> Add task
-        </button>
+                <x-button id="add-task" icon="plus-lg">Add task</x-button>
     </div>
 
     <div class="card focus">
@@ -70,25 +68,17 @@
         <form id="task-form" novalidate>
             <x-input name="title" label="Title" />
 
-            <div class="field">
-                <label for="field-description">Description</label>
-                <textarea name="description" id="field-description" rows="3"></textarea>
-                <p class="field-error" data-error="description"></p>
-            </div>
+                        <x-textarea name="description" label="Description" />
 
-            <div class="field">
-                <label for="field-category_id">Category</label>
-                <select name="category_id" id="field-category_id">
-                    <option value="">Choose a category</option>
-                </select>
-                <p class="field-error" data-error="category_id"></p>
-            </div>
+            <x-select name="category_id" label="Category">
+                <option value="">Choose a category</option>
+            </x-select>
 
             <x-input name="due_date" label="Due date" type="date" />
 
             <div class="modal-actions">
-                <button type="button" class="btn-ghost" data-close-modal>Cancel</button>
-                <button type="submit" class="btn-primary">Save task</button>
+                <x-button variant="ghost" data-close-modal>Cancel</x-button>
+                <x-button type="submit">Save task</x-button>
             </div>
         </form>
     </x-modal>
@@ -98,8 +88,8 @@
         <form id="delete-form">
             <p>Are you sure you want to delete <strong id="delete-title"></strong>? This can't be undone.</p>
             <div class="modal-actions">
-                <button type="button" class="btn-ghost" data-close-modal>Cancel</button>
-                <button type="submit" class="btn-danger">Delete</button>
+                <x-button variant="ghost" data-close-modal>Cancel</x-button>
+                <x-button type="submit" variant="danger">Delete</x-button>
             </div>
         </form>
     </x-modal>

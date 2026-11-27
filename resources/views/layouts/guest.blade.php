@@ -20,7 +20,7 @@
             <span class="auth-brand-mark">tm</span>
             Task Manager
         </div>
-        <a href="#" class="auth-help">Need a hand?</a>
+        
     </header>
 
     <main class="auth-main">
@@ -29,7 +29,6 @@
 
     <footer class="auth-footer">
         <span>&copy; {{ date('Y') }} Task Manager</span>
-        <span>Built with Laravel</span>
     </footer>
 
     @stack('scripts')

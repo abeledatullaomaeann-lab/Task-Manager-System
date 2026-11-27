@@ -185,7 +185,7 @@ a.tool-btn { text-decoration: none; }
 .tool-btn:disabled { opacity: .45; cursor: not-allowed; }
 .field-error:empty { display: none; }
 .alert-error { background: #fbeceb; color: #a33a31; border: 1px solid #f0cfcb; }
-/* ===== Rose theme (matches the login page) ===== */
+
 :root {
     --bg: #f3efea;
     --surface: #faf8f5;

@@ -15,8 +15,6 @@
         Task Manager
     </div>
 
-
-    {{-- <x-nav-link icon="grid" :href="route('home')" :active="request()->routeIs('home')">Dashboard</x-nav-link> --}}
     <x-nav-link icon="check-circle" :href="route('tasks.index')" :active="request()->routeIs('tasks.*')">My tasks</x-nav-link>
 
     @foreach ($sidebarCategories as $category)
